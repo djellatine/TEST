@@ -1,0 +1,43 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: engswee/flashpipe:2.6.0
+    env:
+      HOST_TMN: https://e700120-tmn.hci.eu2.hana.ondemand.com/
+      BASIC_USERID: ${{ secrets.DEV_USER_ID }} # When using Basic authentication
+      BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} # When using Basic authentication
+    steps:
+      - uses: actions/checkout@v2
+      # Set environment variables for update_designtime_artifact.sh
+      - run: |
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/<path_to_iflow_dir>" >> $GITHUB_ENV
+          echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
+          echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Deprecated
+      # Upload/Update design time
+      - name: 'Update/Upload Groovy XML Transformation to design time'
+        run: /usr/bin/update_designtime_artifact.sh
+        shell: bash
+        env:
+          IFLOW_ID: WMS_TEST
+          IFLOW_NAME: WMS_TEST
+          PACKAGE_ID: ZWassim
+          PACKAGE_NAME: ZWassim
+          #WORK_DIR: <working_directory> # Optional
+          #VERSION_HANDLING: <version_no_handling_during_update> # Deprecated
+          #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
+      # Deploy runtime
+      - name: 'Deploy Groovy XML Transformation to runtime'
+        run: /usr/bin/deploy_runtime_artifact.sh
+        shell: bash
+        env:
+          IFLOW_ID: WMS_TEST
+          DELAY_LENGTH: <delay_in_seconds> # Optional
+          MAX_CHECK_LIMIT: <max_check_limit> # Optional          
+          COMPARE_VERSIONS: <compare_versions> # Optional
