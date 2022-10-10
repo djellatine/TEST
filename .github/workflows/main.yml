@@ -10,7 +10,7 @@ jobs:
     container:
       image: engswee/flashpipe:2.6.0
     env:
-      HOST_TMN: https://e700120-tmn.hci.eu2.hana.ondemand.com/
+      HOST_TMN: e700120-tmn.hci.eu2.hana.ondemand.com
       BASIC_USERID: ${{ secrets.DEV_USER_ID }} # When using Basic authentication
       BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} # When using Basic authentication
     steps:
