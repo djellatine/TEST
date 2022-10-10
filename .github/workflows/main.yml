@@ -14,19 +14,21 @@ jobs:
       BASIC_USERID: ${{ secrets.DEV_USER_ID }} # When using Basic authentication
       BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} # When using Basic authentication
     steps:
-      - uses: actions/checkout@v2
+      - name: 'Checkout'
+        uses: actions/checkout@v2
       # Set environment variables for update_designtime_artifact.sh
-      - run: |
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/src/main/resources/scenarioflows/integrationflows/" >> $GITHUB_ENV
+      - name: 'set env'
+        run: |
+            echo "GIT_SRC_DIR=$GITHUB_WORKSPACE" >> $GITHUB_ENV
       # Upload/Update design time
       - name: 'Update/Upload Groovy XML Transformation to design time'
         run: /usr/bin/update_designtime_artifact.sh
         shell: bash
         env:
           IFLOW_ID: WMS_TEST
-          IFLOW_NAME: WMS_TEST
+          IFLOW_NAME: 'WMS_TEST'
           PACKAGE_ID: ZWassim
-          PACKAGE_NAME: ZWassim
+          PACKAGE_NAME: 'ZWassim'
           #WORK_DIR: <working_directory> # Optional
           #VERSION_HANDLING: <version_no_handling_during_update> # Deprecated
           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
@@ -36,6 +38,4 @@ jobs:
         shell: bash
         env:
           IFLOW_ID: WMS_TEST
-          DELAY_LENGTH: <delay_in_seconds> # Optional
-          MAX_CHECK_LIMIT: <max_check_limit> # Optional          
-          COMPARE_VERSIONS: <compare_versions> # Optional
+          DELAY_LENGTH: 15 # Optional
