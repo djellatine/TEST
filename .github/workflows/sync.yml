@@ -24,10 +24,10 @@ on:
       message:
         description: 'Commit message (optional)'
         required: false
-  push:
-    branches:
-      - '*'
-      - 'release/*'
+ # push:
+  #  branches:
+   #   - '*'
+    #  - 'release/*'
 jobs:
   sync:
     runs-on: ubuntu-latest
