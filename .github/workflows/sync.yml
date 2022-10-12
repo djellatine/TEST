@@ -58,7 +58,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
   sync-branch:
-    needs: sync
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -79,7 +78,6 @@ jobs:
           target_branch: uat
           github_token: ${{ github.token }}
   merge-branch:
-    needs: sync
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
