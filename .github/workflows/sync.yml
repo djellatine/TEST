@@ -67,25 +67,7 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: development
-          target_branch: staging
+          from_branch: ${{ github.ref }}
+          target_branch: main
           github_token: ${{ github.token }}
 
-      - name: Merge staging -> uat
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: staging
-          target_branch: main
-          github_token: ${{ github.token }}
-  merge-branch:
-    needs: sync-branch
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Merge staging -> uat
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          target_branch: main
-          github_token: ${{ github.token }}
