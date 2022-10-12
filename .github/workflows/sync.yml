@@ -76,7 +76,7 @@ jobs:
         with:
           type: now
           from_branch: staging
-          target_branch: uat
+          target_branch: main
           github_token: ${{ github.token }}
   merge-branch:
     needs: sync-branch
@@ -87,5 +87,5 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          target_branch: uat
+          target_branch: main
           github_token: ${{ github.token }}
