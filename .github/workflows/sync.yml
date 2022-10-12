@@ -79,6 +79,7 @@ jobs:
           target_branch: uat
           github_token: ${{ github.token }}
   merge-branch:
+    needs: sync-branch
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
