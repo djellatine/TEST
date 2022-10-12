@@ -25,10 +25,10 @@ jobs:
         run: /usr/bin/update_designtime_artifact.sh
         shell: bash
         env:
-          IFLOW_ID: GITEST
-          IFLOW_NAME: 'GIT TEST'
-          PACKAGE_ID: ZWassim
-          PACKAGE_NAME: 'ZWassim'
+          IFLOW_ID: TEST_cXML_to_SAP_IDoc_-_Inbound
+          IFLOW_NAME: 'TEST_cXML_to_SAP_IDoc_-_Inbound'
+          PACKAGE_ID: ZSYSSY
+          PACKAGE_NAME: 'ZSYSSY'
           #WORK_DIR: <working_directory> # Optional
           #VERSION_HANDLING: <version_no_handling_during_update> # Deprecated
           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
@@ -37,5 +37,5 @@ jobs:
         run: /usr/bin/deploy_runtime_artifact.sh
         shell: bash
         env:
-          IFLOW_ID: GITEST
+          IFLOW_ID: ZSYSSY
           DELAY_LENGTH: 15 # Optional
