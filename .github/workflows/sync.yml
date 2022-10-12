@@ -27,8 +27,6 @@ on:
   push:
     branches:
       - '*'
-  push:
-    branches:
       - 'release/*'
 jobs:
   sync:
