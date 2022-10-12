@@ -24,6 +24,12 @@ on:
       message:
         description: 'Commit message (optional)'
         required: false
+  push:
+    branches:
+      - '*'
+  push:
+    branches:
+      - 'release/*'
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -53,3 +59,35 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
+  sync-branch:
+    needs: sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge development -> staging
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: development
+          target_branch: staging
+          github_token: ${{ github.token }}
+
+      - name: Merge staging -> uat
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: staging
+          target_branch: uat
+          github_token: ${{ github.token }}
+  merge-branch:
+    needs: sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Merge staging -> uat
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: uat
+          github_token: ${{ github.token }}
